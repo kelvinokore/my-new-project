@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fresh Bites | Order ahead, skip the queue</title>
+<meta name="description" content="Order stir-fried spaghetti, banga rice and more from Fresh Bites. Pay, get your receipt, and collect your food with no waiting.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#0f4d2e;--leaf:#1e7a46;--sun:#ffc72c;--ink:#1c1c1a;--paper:#fffdf5;--line:#e4dfc9;--soft:#f3efdc}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'Bricolage Grotesque',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.5}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{background:var(--green);color:#fff}
+nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+.logo{font-weight:800;font-size:1.3rem;text-decoration:none}
+.btn{display:inline-block;border:0;border-radius:999px;padding:12px 22px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;background:var(--sun);color:var(--ink)}
+.btn.alt{background:transparent;color:#fff;border:2px solid #fff}
+.hero{padding:40px 0 64px;display:grid;gap:32px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,8vw,5.4rem);line-height:.95;font-weight:800;letter-spacing:-.03em}
+.hero p{font-size:1.15rem;max-width:34ch;margin:20px 0 28px;opacity:.92}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.steps{list-style:none;padding:0;display:grid;gap:14px}
+.steps li{background:var(--paper);color:var(--ink);border-radius:14px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+.steps b{background:var(--green);color:var(--sun);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;flex:none}
+.steps span{display:block;font-size:.92rem;opacity:.75}
+section{padding:56px 0}
+h2{font-size:clamp(1.8rem,5vw,2.6rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:8px}
+.sub{opacity:.7;margin-bottom:28px}
+.order{display:grid;gap:32px;align-items:start}
+.menu{list-style:none;padding:0}
+.menu li{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.menu .n{flex:1}
+.menu .n small{display:block;opacity:.65}
+.price{font-weight:800;white-space:nowrap}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:36px;height:36px;border-radius:50%;border:2px solid var(--green);background:#fff;color:var(--green);font-size:1.2rem;font-weight:800;cursor:pointer}
+.qty button:hover{background:var(--green);color:#fff}
+.qty output{min-width:20px;text-align:center;font-weight:600}
+.receipt{background:var(--paper);border:2px solid var(--ink);border-radius:6px;padding:22px 20px 28px;position:sticky;top:12px;
+ -webkit-mask:radial-gradient(circle 7px at 7px 100%,#0000 98%,#000) -7px 0/14px 100% ;}
+.receipt{-webkit-mask:none}
+.receipt h3{font-size:1.3rem;text-align:center}
+.receipt .tag{text-align:center;font-size:.85rem;opacity:.65;border-bottom:2px dashed var(--ink);padding-bottom:12px;margin-bottom:12px}
+#lines{list-style:none;padding:0;min-height:48px}
+#lines li{display:flex;justify-content:space-between;gap:10px;padding:4px 0}
+.empty{opacity:.6;text-align:center;padding:12px 0}
+.total{display:flex;justify-content:space-between;font-weight:800;font-size:1.3rem;border-top:2px dashed var(--ink);margin-top:10px;padding-top:12px}
+label{display:block;font-weight:600;margin:16px 0 6px;font-size:.95rem}
+input[type=text]{width:100%;padding:11px 12px;border:2px solid var(--ink);border-radius:8px;font:inherit;background:#fff}
+.send{display:grid;gap:10px;margin-top:18px}
+.send button{width:100%;padding:14px;border-radius:10px;border:0;font:inherit;font-weight:800;font-size:1rem;cursor:pointer;color:#fff}
+.wa{background:#1fa855}.tg{background:#229ed9}
+.send button:disabled{opacity:.4;cursor:not-allowed}
+#msg{font-size:.9rem;margin-top:12px;min-height:1.2em;color:var(--leaf);font-weight:600}
+.pay{background:var(--soft)}
+.pay .grid{display:grid;gap:24px}
+.acct{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:20px}
+.acct dt{font-size:.85rem;opacity:.65}
+.acct dd{font-weight:800;font-size:1.15rem;margin-bottom:10px}
+.how ol{padding-left:20px}.how li{margin-bottom:10px}
+footer{background:var(--ink);color:#fff;text-align:center;padding:36px 20px}
+footer p{opacity:.75;margin-top:6px}
+@media(min-width:820px){
+ .hero{grid-template-columns:1.2fr 1fr}
+ .order{grid-template-columns:1.3fr 1fr}
+ .pay .grid{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap">
+  <nav>
+   <a class="logo" href="#">Fresh Bites</a>
+   <a class="btn" href="#order">Order now</a>
+  </nav>
+  <div class="hero">
+   <div>
+    <h1>Order first. Pay. Pick up. No queue.</h1>
+    <p>Hot stir-fried spaghetti, banga rice, chicken and more, ready when you reach us.</p>
+    <div class="cta">
+     <a class="btn" href="#order">Pick your food</a>
+     <a class="btn alt" href="#how">How it works</a>
+    </div>
+   </div>
+   <ol class="steps">
+    <li><b>1</b><div>Choose your food<span>Pick what you want and see your total.</span></div></li>
+    <li><b>2</b><div>Send your order<span>On WhatsApp (Telegram coming soon).</span></div></li>
+    <li><b>3</b><div>Pay and get your receipt<span>Transfer, then send us the proof.</span></div></li>
+    <li><b>4</b><div>Show it and eat<span>Show your receipt and we serve you right away.</span></div></li>
+   </ol>
+  </div>
+ </div>
+</header>
+
+<section id="order">
+ <div class="wrap">
+  <h2>Build your order</h2>
+  <p class="sub">Tap + to add food. Your receipt updates on the right.</p>
+  <div class="order">
+   <ul class="menu" id="menu"></ul>
+
+   <aside class="receipt" aria-live="polite">
+    <h3>Your order</h3>
+    <div class="tag">Fresh Bites &middot; roadside kitchen</div>
+    <ul id="lines"></ul>
+    <div class="total"><span>Total</span><span id="total">₦0</span></div>
+    <label for="name">Your name</label>
+    <input type="text" id="name" placeholder="e.g. Kelvin" autocomplete="name">
+    <label for="note">Note for the kitchen (optional)</label>
+    <input type="text" id="note" placeholder="e.g. extra pepper">
+    <div class="send">
+     <button class="wa" id="wa" disabled>Send order on WhatsApp</button>
+     <button class="tg" id="tg" disabled>Telegram ordering: coming soon</button>
+    </div>
+    <p id="msg"></p>
+   </aside>
+  </div>
+ </div>
+</section>
+
+<section class="pay" id="pay">
+ <div class="wrap grid">
+  <div>
+   <h2>How to pay</h2>
+   <p class="sub">Pay by bank transfer after you send your order, then send us the payment screenshot.</p>
+  </div>
+  <dl class="acct">
+   <dt>Bank</dt><dd>Moniepoint Microfinance Bank</dd>
+   <dt>Account number</dt><dd>5290244650</dd>
+   <dt>Account name</dt><dd>Anighoro Faith</dd>
+  </dl>
+ </div>
+</section>
+
+<section class="how" id="how">
+ <div class="wrap">
+  <h2>Skip the line in 4 steps</h2>
+  <ol>
+   <li>Choose your food above and tap <strong>Send order on WhatsApp</strong>. Telegram ordering is coming soon.</li>
+   <li>We reply with your order number and confirm the total.</li>
+   <li>Transfer the money and send us the screenshot. We send back your receipt.</li>
+   <li>Come to the stand, show your receipt, and collect your hot food straight away.</li>
+  </ol>
+ </div>
+</section>
+
+<footer>
+ <strong>Fresh Bites</strong>
+ <p>Stir-fried spaghetti &middot; Banga rice &middot; Grills &amp; sides</p>
+</footer>
+
+<script>
+/* ====== EDIT THESE THREE LINES ====== */
+const WHATSAPP = "2347069381080";   // your number, no + or spaces, starts with 234
+const TELEGRAM = "your_telegram_username"; // without the @
+const SHOP = "Fresh Bites";
+/* ==================================== */
+
+const ITEMS = [
+ {id:"spag",  name:"Stir-fried spaghetti", note:"per portion", price:1000},
+ {id:"banga", name:"Banga rice",           note:"per portion", price:500},
+ {id:"assort",name:"Assorted meat",        note:"for banga rice, each", price:1000},
+ {id:"plant", name:"Plantain",             note:"each", price:100},
+ {id:"hot",   name:"Hotdog",               note:"each", price:500},
+ {id:"wing1", name:"Chicken wings",        note:"standard", price:2500},
+ {id:"wing2", name:"Chicken wings",        note:"large", price:3000},
+ {id:"turk",  name:"Turkey",               note:"each", price:3000},
+ {id:"drum",  name:"Drumstick",            note:"each", price:2500},
+ {id:"beef",  name:"Beef",                 note:"each", price:1000},
+ {id:"egg",   name:"Egg",                  note:"each", price:400},
+ {id:"cut1",  name:"Chicken cut",          note:"standard", price:1500},
+ {id:"cut2",  name:"Chicken cut",          note:"large", price:2000}
+];
+const qty = {};
+const fmt = n => "₦" + n.toLocaleString("en-NG");
+const $ = id => document.getElementById(id);
+
+$("menu").innerHTML = ITEMS.map(i => `
+ <li>
+  <div class="n">${i.name}<small>${i.note}</small></div>
+  <span class="price">${fmt(i.price)}</span>
+  <div class="qty">
+   <button type="button" aria-label="Remove one ${i.name} ${i.note}" data-id="${i.id}" data-d="-1">&minus;</button>
+   <output id="q-${i.id}">0</output>
+   <button type="button" aria-label="Add one ${i.name} ${i.note}" data-id="${i.id}" data-d="1">+</button>
+  </div>
+ </li>`).join("");
+
+$("menu").addEventListener("click", e => {
+ const b = e.target.closest("button"); if(!b) return;
+ const id = b.dataset.id;
+ qty[id] = Math.max(0, (qty[id]||0) + Number(b.dataset.d));
+ $("q-"+id).textContent = qty[id];
+ render();
+});
+
+function chosen(){ return ITEMS.filter(i => qty[i.id] > 0); }
+function total(){ return chosen().reduce((s,i)=> s + i.price*qty[i.id], 0); }
+
+function render(){
+ const c = chosen();
+ $("lines").innerHTML = c.length
+  ? c.map(i => `<li><span>${qty[i.id]} × ${i.name} (${i.note})</span><span>${fmt(i.price*qty[i.id])}</span></li>`).join("")
+  : '<li class="empty">Nothing added yet</li>';
+ $("total").textContent = fmt(total());
+ $("wa").disabled = c.length === 0; /* Telegram stays disabled until the bot is ready */
+}
+
+function orderText(){
+ const code = "FB" + Math.floor(100 + Math.random()*900);
+ const name = $("name").value.trim() || "Customer";
+ const note = $("note").value.trim();
+ let t = `Hello ${SHOP}! New order ${code}\nName: ${name}\n\n`;
+ chosen().forEach(i => { t += `${qty[i.id]} x ${i.name} (${i.note}) = ${fmt(i.price*qty[i.id])}\n`; });
+ t += `\nTOTAL: ${fmt(total())}`;
+ if(note) t += `\nNote: ${note}`;
+ t += `\n\nI will send my payment screenshot next.`;
+ return t;
+}
+
+$("wa").addEventListener("click", () => {
+ window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(orderText()), "_blank");
+ $("msg").textContent = "WhatsApp is opening. Send the message, then pay and send your screenshot.";
+});
+
+$("tg").addEventListener("click", async () => {
+ const text = orderText();
+ try { await navigator.clipboard.writeText(text); $("msg").textContent = "Order copied. Telegram is opening: paste it in the chat and send."; }
+ catch(e){ $("msg").textContent = "Telegram is opening. Please type your order in the chat."; }
+ window.open("https://t.me/" + TELEGRAM, "_blank");
+});
+
+render();
+</script>
+</body>
+</html>
